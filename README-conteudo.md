@@ -2,186 +2,255 @@
 
 <!-- toc -->
 
-- [Trabalhando com texto — strings em JavaScript](#trabalhando-com-texto--strings-em-javascript)
-    - [O poder das palavras](#o-poder-das-palavras)
-    - [Strings — O básico](#strings--o-básico)
-    - [Concatenando strings](#concatenando-strings)
-    - [Conclusão](#conclusão)
-- [Métodos úteis de string](#métodos-úteis-de-string)
-    - [Strings como objetos](#strings-como-objetos)
-    - [Encontrando o comprimento de uma string](#encontrando-o-comprimento-de-uma-string)
-    - [Recuperando um caractere específico de uma string](#recuperando-um-caractere-específico-de-uma-string)
-    - [Testando se uma string contém uma substring](#testando-se-uma-string-contém-uma-substring)
-    - [Encontrando a posição de uma substring em uma string](#encontrando-a-posi%C3%A7%C3%A3o-de-uma-substring-em-uma-string)
-    - [Extraindo uma substring de uma string](#extraindo-uma-substring-de-uma-string)
-    - [Alterando a capitalização](#alterando-a-capitaliza%C3%A7%C3%A3o)
-    - [Atualizando partes de uma string](#atualizando-partes-de-uma-string)
-    - [Exemplos para aprendizado ativo](#exemplos-para-aprendizado-ativo)
-    - [Conclusão](#conclusão-1)
+  - [Definindo Funções](#definindo-funções)
+    - [Declaração de Função](#declaração-de-função)
+    - [Expressão de Função](#expressão-de-função)
+    - [Função Construtora](#função-construtora)
+  - [Chamando Funções](#chamando-funções)
+  - [Escopo de Função e Closures](#escopo-de-função-e-closures)
+  - [Objeto `arguments`](#objeto-arguments)
+  - [Parâmetros de Função](#parâmetros-de-função)
+  - [Funções de Seta (Arrow Functions)](#funções-de-seta-arrow-functions)
+- [Expressões de Função de Seta (Arrow Functions)](#expressões-de-função-de-seta-arrow-functions)
+  - [Sintaxe](#sintaxe)
+  - [Características](#características)
+  - [Retornando Objetos Literais](#retornando-objetos-literais)
+  - [Exemplos](#exemplos)
+    - [Função Tradicional vs. Função de Seta](#função-tradicional-vs-função-de-seta)
+    - [Função de Seta com Múltiplas Instruções](#função-de-seta-com-múltiplas-instruções)
 - [Referências](#referências)
 
 <!-- toc -->
 
-# Strings — O básico
+## Definindo Funções
 
-Strings são sequências de caracteres usadas para representar texto, que podem ser criadas utilizando aspas simples, duplas ou crases (para templates literais).
+Funções são blocos de código reutilizáveis que realizam tarefas específicas. 
 
+### Partes de uma função
+Uma função é composta por algumas partes principais:
+
+- Palavra-chave **function**: Indica que se está definindo uma função.
+- **Nome da função**: É o nome que será usado para chamar a função.
+- **Parâmetros** (opcionais): São variáveis que recebem valores quando a função é chamada. São listados entre parênteses e separados por vírgulas.
+- **Corpo da função**: É o bloco de código entre chaves {} que define o que a função faz.
+- **Valor de retorno** (opcional): É o valor que a função retorna quando é chamada. Usualmente, é definido usando a palavra-chave return.
+
+
+Com estas partes, podemos definir uma função de várias maneiras. Veja os tópicos a seguir.
+
+### Declaração de Função
+
+```javascript
+// JavaScript
+function saudar(nome) {
+  return `Olá, ${nome}!`;
+}
+saudar('Frida'); // esta é a **chamada** da função, que faz com que ela seja executada
+```
 ```typescript
-let single = 'Aspas simples';
-let double = 'Aspas duplas';
-let backtick = `Template literal`;
+// TypeScript
+function saudar(nome: string) {
+  return `Olá, ${nome}!`;
+}
+saudar('Frida');  // esta é a **chamada** da função, que faz com que ela seja executada
 ```
 
-Strings podem conter qualquer caractere Unicode e suportam caracteres especiais como `\n` para nova linha.
+### Expressão de Função
 
-Se você tem aspas no seu texto, pode usar a barra invertida `\` para escapar as aspas ou usar o outro formato para delimitar a string:
+Embora a declaração de função acima seja sintaticamente uma declaração, funções também podem ser criadas por uma expressão de função. Tal função pode ser **anônima**: sem nome depois de function. Por exemplo:
 
 ```typescript
-var naruto =
-    '"Trabalho duro" é inútil para aqueles que não acreditam em si mesmos.';
-var aspasNoTexto1 = "Essas são aspas únicas: '";
-var aspasNoTexto2 = "Essas são aspas únicas: '";
+// TypeScript
+const saudar = function(nome: string) {
+  return `Olá, ${nome}!`;
+};
+
+let saudacao = saudar('Lana');
 ```
 
-## Concatenando strings
-
-Concatenar strings significa uni-las. Isso pode ser feito com o operador `+` ou utilizando templates literais.
+No entanto, um nome pode ser fornecido com uma expressão de função e pode ser utilizado no interior da função para se referir a si mesma, ou em um debugger para identificar a função em stack traces:
 
 ```typescript
-let greeting = 'Olá, ';
-let name = 'Mundo';
-let message = greeting + name; // "Olá, Mundo"
+var fatorial = function fac(n) {
+  if (n == 0 || n == 1) return 1;
+  else return n * fac(n - 1);
+}
 
-let templateMessage = `${greeting}${name}`; // "Olá, Mundo"
+console.log(fatorial(3));
 ```
 
-Templates literais permitem interpolar variáveis diretamente dentro da string, tornando o código mais legível.
+## Escopo de Função e Closures
 
-# Métodos úteis de string
+Funções em JavaScript criam seu próprio escopo. Variáveis definidas dentro de uma função não são acessíveis fora dela (usando let e const).
 
-Agora que vimos o básico sobre strings, vamos explorar operações úteis que podemos realizar com métodos integrados, como encontrar o comprimento de uma string de texto, juntar e dividir strings, substituir um caractere por outro e muito mais.
+```javascript
+function exemplo() {
+  const mensagem = 'Olá!';
+  return mensagem;
+}
 
-## Encontrando o comprimento de uma string
-
-Use a propriedade `length` para obter o número de caracteres em uma string:
-
-```typescript
-const tipoNavegador = 'mozilla';
-tipoNavegador.length; // Retorna 7
+console.log(exemplo()); // "Olá!"
+console.log(mensagem); // Erro: mensagem não está definida
 ```
 
-## Recuperando um caractere específico de uma string
-
-Você pode acessar qualquer caractere dentro de uma string usando a notação de colchetes `[]`:
+No entanto, uma função pode acessar todas variáveis e funções definida fora do escopo onde ela está definida.
 
 ```typescript
-const tipoNavegador = 'mozilla';
-tipoNavegador[0]; // Retorna 'm'
+const mensagem = 'Olá!';
+
+function exemplo(nome: string) {
+  return mensagem + nome;
+}
+
+console.log(exemplo()); // "Olá!"
+console.log(mensagem); // Agora não dá mais erro, pois está no mesmo escopo
 ```
 
-Para obter o último caractere de qualquer string:
 
-```typescript
-tipoNavegador[tipoNavegador.length - 1];
+Closures permitem que funções internas acessem variáveis de funções externas mesmo após a execução da função externa.
+
+```javascript
+function saudacao(nome) {
+  return function() {
+    console.log(`Olá, ${nome}!`);
+  };
+}
+
+const saudarMaria = saudacao('Maria');
+saudarMaria(); // "Olá, Maria!"
 ```
 
-## Testando se uma string contém uma substring
+## Objeto `arguments`
 
-Para verificar se uma substring está presente dentro de uma string maior, use o método `includes()`:
+Dentro de uma função, o objeto `arguments` contém todos os argumentos passados para ela.
 
-```typescript
-const tipoNavegador = 'mozilla';
+```javascript
+function somarTodos() {
+  let total = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    total += arguments[i];
+  }
+  return total;
+}
 
-if (tipoNavegador.includes('zilla')) {
-    console.log('Encontrado zilla!');
-} else {
-    console.log('Zilla não encontrado!');
+somarTodos(1, 2, 3); // Retorna 6
+```
+
+## Parâmetros de Função
+
+Funções podem ter parâmetros com valores padrão:
+
+```javascript
+function saudar(nome = 'Visitante') {
+  return `Olá, ${nome}!`;
+}
+
+saudar(); // "Olá, Visitante!"
+```
+
+## Funções de Seta (Arrow Functions)
+
+Introduzidas no ES6, as funções de seta oferecem uma sintaxe mais curta:
+
+```javascript
+const somar = (a, b) => a + b;
+```
+
+Se a função tiver apenas um parâmetro, os parênteses são opcionais:
+
+```javascript
+const quadrado = x => x * x;
+```
+
+Para funções com múltiplas instruções, utilize chaves e a palavra-chave `return`:
+
+```javascript
+const somar = (a, b) => {
+  const resultado = a + b;
+  return resultado;
+};
+```
+
+---
+
+# Expressões de Função de Seta (Arrow Functions)
+
+## Sintaxe
+
+```javascript
+(param1, param2, ..., paramN) => expressão
+```
+
+Equivalente a:
+
+```javascript
+function(param1, param2, ..., paramN) {
+  return expressão;
 }
 ```
 
-Para verificar se uma string começa ou termina com uma substring específica, use `startsWith()` e `endsWith()`:
+## Características
 
-```typescript
-tipoNavegador.startsWith('moz'); // Retorna true
-tipoNavegador.endsWith('zilla'); // Retorna true
+- **Sem `this` próprio**: O valor de `this` dentro de uma função de seta é o mesmo do contexto onde a função foi definida.
+
+  ```javascript
+  const obj = {
+    nome: 'Objeto',
+    saudar: () => {
+      console.log(`Olá, ${this.nome}`);
+    }
+  };
+
+  obj.saudar(); // "Olá, undefined"
+  ```
+
+- **Não pode ser usada como construtora**: Funções de seta não podem ser usadas com `new`.
+
+- **Sem objeto `arguments`**: Funções de seta não possuem o objeto `arguments`. Utilize parâmetros rest (`...args`) se necessário.
+
+  ```javascript
+  const somarTodos = (...numeros) => {
+    return numeros.reduce((total, num) => total + num, 0);
+  };
+  ```
+
+## Retornando Objetos Literais
+
+Para retornar um objeto literal, envolva-o entre parênteses:
+
+```javascript
+const criarPessoa = (nome, idade) => ({ nome, idade });
 ```
 
-## Encontrando a posição de uma substring em uma string
+Sem os parênteses, o JavaScript interpreta as chaves como o início de um bloco de código, não de um objeto.
 
-Use o método `indexOf()` para encontrar a posição de uma substring dentro de uma string maior:
+## Exemplos
 
-```typescript
-const slogan = 'Recursos para desenvolvedores';
-console.log(slogan.indexOf('desenvolvedores')); // Retorna 14
+### Função Tradicional vs. Função de Seta
+
+```javascript
+// Função tradicional
+function dobrar(a) {
+  return a * 2;
+}
+
+// Função de seta
+const dobrar = a => a * 2;
 ```
 
-Se a substring não for encontrada, `indexOf()` retorna `-1`.
+### Função de Seta com Múltiplas Instruções
 
-Para encontrar ocorrências subsequentes de uma substring:
-
-```typescript
-const slogan = 'Recursos para desenvolvedores, por desenvolvedores';
-const primeiraOcorrencia = slogan.indexOf('desenvolvedores');
-const segundaOcorrencia = slogan.indexOf(
-    'desenvolvedores',
-    primeiraOcorrencia + 1
-);
-
-console.log(primeiraOcorrencia); // 14
-console.log(segundaOcorrencia); // 35
+```javascript
+const processar = (a, b) => {
+  const resultado = a + b;
+  return resultado * 2;
+};
 ```
-
-## Extraindo uma substring de uma string
-
-Você pode extrair partes de uma string usando os métodos `slice()`, `substring()` ou `substr()`:
-
-```typescript
-const nomeCompleto = 'Maria Silva';
-
-// Usando slice
-const primeiroNome = nomeCompleto.slice(0, 5); // "Maria"
-
-// Usando substring
-const sobrenome = nomeCompleto.substring(6); // "Silva"
-```
-
-## Alterando a capitalização
-
-Para converter uma string para letras maiúsculas ou minúsculas, use `toUpperCase()` e `toLowerCase()`:
-
-```typescript
-const saudacao = 'Olá Mundo';
-
-saudacao.toUpperCase(); // "OLÁ MUNDO"
-saudacao.toLowerCase(); // "olá mundo"
-```
-
-## Atualizando partes de uma string
-
-Para substituir partes de uma string, use o método `replace()`:
-
-```typescript
-const frase = 'Eu gosto de maçãs';
-
-const novaFrase = frase.replace('maçãs', 'pizza');
-console.log(novaFrase); // "Eu gosto de pizza" 😏 
-```
-
-Para substituir todas as ocorrências, use uma expressão regular com a flag `g`:
-
-```typescript
-const texto = 'maçã, maçã, maçã';
-const novoTexto = texto.replace(/maçã/g, 'pizza');
-console.log(novoTexto); // "pizza, pizza, pizza"
-```
-
-Expressões regulares são úteis para trabalhar com strings. Se quiser entender mais sobre expressões regulares, veja [este guia na MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Regular_expressions).
-
 
 ## Referências
 
 [qxcodefup/arcade](https://github.com/qxcodefup/arcade)
 
-[Trabalhando com texto — strings em JavaScript](https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Core/Scripting/Strings)
+[Funções - Guia JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
 
-[Métodos úteis de string](https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Core/Scripting/Useful_string_methods)
+[Expressões de Função de Seta - Referência JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
