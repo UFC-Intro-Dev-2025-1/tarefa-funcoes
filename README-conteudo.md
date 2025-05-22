@@ -79,9 +79,9 @@ var fatorial = function fac(n) {
 console.log(fatorial(3));
 ```
 
-## Escopo de Função e Closures
+## Escopo de Função
 
-Funções em JavaScript criam seu próprio escopo. Variáveis definidas dentro de uma função não são acessíveis fora dela (usando let e const).
+Funções em JavaScript criam seu próprio escopo. Variáveis definidas dentro de uma função não são acessíveis fora dela.
 
 ```javascript
 function exemplo() {
@@ -189,31 +189,6 @@ function(param1, param2, ..., paramN) {
 }
 ```
 
-## Características
-
-- **Sem `this` próprio**: O valor de `this` dentro de uma função de seta é o mesmo do contexto onde a função foi definida.
-
-  ```javascript
-  const obj = {
-    nome: 'Objeto',
-    saudar: () => {
-      console.log(`Olá, ${this.nome}`);
-    }
-  };
-
-  obj.saudar(); // "Olá, undefined"
-  ```
-
-- **Não pode ser usada como construtora**: Funções de seta não podem ser usadas com `new`.
-
-- **Sem objeto `arguments`**: Funções de seta não possuem o objeto `arguments`. Utilize parâmetros rest (`...args`) se necessário.
-
-  ```javascript
-  const somarTodos = (...numeros) => {
-    return numeros.reduce((total, num) => total + num, 0);
-  };
-  ```
-
 ## Retornando Objetos Literais
 
 Para retornar um objeto literal, envolva-o entre parênteses:
@@ -251,6 +226,6 @@ const processar = (a, b) => {
 
 [qxcodefup/arcade](https://github.com/qxcodefup/arcade)
 
-[Funções - Guia JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
+[Funções - Guia JavaScript | MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Functions)
 
-[Expressões de Função de Seta - Referência JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+[Expressões de Função de Seta - Referência JavaScript | MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
