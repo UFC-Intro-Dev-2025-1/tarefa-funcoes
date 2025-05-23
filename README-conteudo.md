@@ -35,7 +35,6 @@ Uma função é composta por algumas partes principais:
 - **Corpo da função**: É o bloco de código entre chaves {} que define o que a função faz.
 - **Valor de retorno** (opcional): É o valor que a função retorna quando é chamada. Usualmente, é definido usando a palavra-chave return.
 
-
 Com estas partes, podemos definir uma função de várias maneiras. Veja os tópicos a seguir.
 
 ### Declaração de Função
@@ -54,6 +53,17 @@ function saudar(nome: string) {
 }
 saudar('Frida');  // esta é a **chamada** da função, que faz com que ela seja executada
 ```
+
+Funções definidas com `function` podem ser declaradas depois da chamada. Exemplo:
+```typescript
+// TypeScript
+console.log(saudar('Frida')); 
+
+function saudar (nome: string) {
+  return `Olá, ${nome}!`;
+}
+```
+
 
 ### Expressão de Função
 
@@ -78,10 +88,18 @@ var fatorial = function fac(n) {
 
 console.log(fatorial(3));
 ```
+Diferente da função declara com `function`, não é possível chamar antes da inicialização da função, que é guardada em um variável.
+```typescript
+console.log(square(5)); // Erro!
+var square = function (n) {
+  return n * n;
+};
+
+```
 
 ## Escopo de Função
 
-Funções em JavaScript criam seu próprio escopo. Variáveis definidas dentro de uma função não são acessíveis fora dela.
+Funções em JavaScript criam seu próprio escopo. Variáveis declaradas dentro de uma função não são acessíveis fora dela.
 
 ```javascript
 function exemplo() {
@@ -107,18 +125,68 @@ console.log(mensagem); // Agora não dá mais erro, pois está no mesmo escopo
 ```
 
 
-Closures permitem que funções internas acessem variáveis de funções externas mesmo após a execução da função externa.
+A função definida dentro de outra função também pode acessar todas as variáveis definidas na função hospedeira e outras variáveis ao qual a função hospedeira tem acesso.
 
 ```javascript
-function saudacao(nome) {
-  return function() {
-    console.log(`Olá, ${nome}!`);
-  };
+// JavaScript
+// As seguintes variáveis são definidas no escopo global
+var num1 = 20,
+  num2 = 3,
+  nome = "Chamahk";
+
+// Esta função é definida no escopo global
+function multiplica() {
+  return num1 * num2;
 }
 
-const saudarMaria = saudacao('Maria');
-saudarMaria(); // "Olá, Maria!"
+multiplica(); // Retorna 60
+
+// Um exemplo de função aninhada
+function getScore() {
+  var num1 = 2,
+    num2 = 3;
+
+  function add() {
+    return nome + " scored " + (num1 + num2);
+  }
+
+  return add();
+}
+
+getScore(); // Retorna "Chamahk scored 5"
 ```
+
+## Recursão
+Uma função pode referir-se e chamar a si própria. Há três maneiras de uma função referir-se a si mesma. Vamos tratar as duas mais conhecidas:
+
+1. o nome da função
+
+```javascript
+let desliga = function desligaTu() {
+  setTimeout(function() {
+    console.log('desliga tu');
+    desligaTu();
+  }, 1000);
+};
+
+desliga();
+```
+
+2. uma variável no escopo que se refere a função
+
+```javascript
+let desliga = function desligaTu() {
+  setTimeout(function() {
+    console.log('desliga tu');
+    desliga();
+  }, 1000);
+};
+
+desliga();
+```
+
+Uma função que chama a si mesma é chamada de função recursiva. Em alguns casos, a recursividade é análoga a um laço. Ambos executam o código várias vezes, e ambos necessitam de uma condição (para evitar um laço infinito, ou melhor, recursão infinita, neste caso).
+
 
 ## Objeto `arguments`
 
