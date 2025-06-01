@@ -6,19 +6,19 @@ let frase =
     'Palavras são, na minha nada humilde opinião, nossa fonte inesgotável de mgia.';
 
 function calcularComprimento(texto: string): number {
-    return texto.length;
+    // Adicione seu código aqui 👇
 }
 
 function contarPalavras(texto: string): number {
-    return texto.split(' ').length;
+    // Adicione seu código aqui 👇
 }
 
 function contemTrecho(texto: string, palavra: string): boolean {
-    return texto.includes(palavra);
+    // Adicione seu código aqui 👇
 }
 
 function substituirTrecho(antigo: string, novo: string): void {
-    frase = frase.replace(antigo, novo);
+    // Adicione seu código aqui 👇
 }
 
 console.log(`Comprimento da frase: ${calcularComprimento(frase)}`); //77

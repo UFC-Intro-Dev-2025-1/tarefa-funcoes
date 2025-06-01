@@ -1,5 +1,5 @@
 // Strings Extra 2
-// 
+// Crie funções chamadas getFrase() e getAutor() que retornam respectivamente a frase e o autor de um objeto do tipo Ditado.
 
 type Ditado = {
     frase: string;
@@ -16,13 +16,12 @@ const ditadoPequenoPrincipe: Ditado = {
     autor: ' Antoine de Saint-Exupéry',
 };
 
-function getFrase(ditado: Ditado): string {
-    return ditado.frase;
-}
+// Adicione seu código aqui 👇 
 
-function getAutor(ditado: Ditado): string {
-    return ditado.autor;
-}
+
+
+
+
 
 console.log('Frase: ' + getFrase(ditadoStarWars));
 console.log(' - Autor: ' + getAutor(ditadoStarWars));

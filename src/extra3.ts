@@ -3,10 +3,11 @@
 // Tarefa: Utilize arrow functions para calcular a hipotenusa e gerar a mensagem do resultado.
 // 1. Crie uma função chamada `calcularHipotenusa` que receba dois números (ladoA e ladoB) e retorne o comprimento da hipotenusa com 2 casas decimais.
 // A fórmula de cálculo da hipotenusa é: c = √(a² + b²)
+// Veja: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
 
-// Função para calcular a hipotenusa
-const calcularHipotenusa = (ladoA: number, ladoB: number): string =>
-    Math.sqrt(ladoA ** 2 + ladoB ** 2).toFixed(2);
+// Adicione seu código aqui 👇
+
+
 
 const hipotenusa1 = calcularHipotenusa(9, 12);
 console.log(hipotenusa1); //15.00
