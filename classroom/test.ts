@@ -7,12 +7,34 @@ console.log(
     '\n\n---------------------------\n\n🔍 Iniciando verificação da atividade...\n'
 );
 
+// Valida o TypeScript
+try {
+    const outputLinter = execSync('npx eslint . --ext .ts').toString();
+
+    if (outputLinter.includes('problem') || outputLinter.includes('error')) {
+        console.log('❌ Verifique o TypeScript no código.');
+        console.log(outputLinter);
+    } else console.log('✅ TypeScript validado!');
+} catch (error) {
+    console.log(
+        '❌ Erros do ESLint:\n',
+        error.stdout?.toString() || error.message
+    );
+}
+
 // Teste 1: Verifica o main.ts
 try {
-    // testa primeiro se roda
-    const saidaEsperada = 'Ser ou não ser, eis a questão';
+    // testa se roda
+    const saidasEsperadas = [
+        '30.50',
+        '5.75',
+        'R$',
+        'Arroz',
+        'Feijão',
+        'Macarrão',
+    ];
     const output = execSync('npm run build').toString();
-    if (output.toString().includes(saidaEsperada)) {
+    if (saidasEsperadas.some((saida) => output.toString().includes(saida))) {
         passed++;
         console.log('✅ main.ts: Saída em texto do código é a esperada.');
     } else {
@@ -28,11 +50,14 @@ try {
 try {
     // testa primeiro se roda
     const saidaEsperadaExtra1 =
-        'Comprimento do trecho: 18\n' +
-        'Índice do trecho: 25\n' +
-        'Frase revisada: Eu não gosto de spoilers';
+        'A frase contem: 12 palavras\n' +
+        'A frase contem a palavra "magia"? false\n\n' +
+        '------- Corrigindo a palavra "magia"\n' +
+        'Frase corrigida: Palavras são, na minha nada humilde opinião, nossa fonte inesgotável de magia.\n' +
+        'A frase contem a palavra "magia"? true';
 
     const output = execSync('npx tsx src/extra1.ts').toString();
+
     if (output.toString().includes(saidaEsperadaExtra1)) {
         passed++;
         console.log('✅ extra1.ts: Saída em texto do código é a esperada.');
@@ -47,7 +72,10 @@ try {
 try {
     // testa primeiro se roda
     const saidaEsperadaExtra2 =
-        'Se um triângulo tem lados de 9 e 12, então a hipotenusa mede 15.';
+        'Frase: Palavras são, na minha nada humilde opinião, nossa fonte inesgotável de magia.\n' +
+        ' - Autor: Dumbledore\n' +
+        'Frase: Tu te tornas eternamente responsável por aquilo que cativas.\n' +
+        ' - Autor:  Antoine de Saint-Exupéry';
 
     const output = execSync('npx tsx src/extra2.ts').toString();
     if (output.toString().includes(saidaEsperadaExtra2)) {
@@ -63,7 +91,7 @@ try {
 // Teste 4: Verifica o extra3.ts
 try {
     // testa primeiro se roda
-    const saidaEsperadaExtra3 = /Eu não gosto de (.+?)\./i;
+    const saidaEsperadaExtra3 = '15.00\n14.14';
     const output = execSync('npx tsx src/extra3.ts').toString();
     if (output.toString().search(saidaEsperadaExtra3) >= 0) {
         passed++;
