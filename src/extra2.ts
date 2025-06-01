@@ -1,27 +1,33 @@
 // Strings Extra 2
+// 
 
-// Nesta atividade, você tem o nome de um teorema, dois valores numéricos e uma string incompleta (os trechos a serem preenchidos estão marcados com asteriscos (*)).
-// Realize as tarefas abaixo:
-// 1. Transforme a string de aspas simples em um template literal (crase).
-// 2. Substitua os quatro asteriscos por placeholders de template literal:
-//    - O nome do teorema.
-//    - Os dois valores numéricos fornecidos.
-//    - O comprimento da hipotenusa de um triângulo retângulo, sabendo que os outros dois lados têm os valores fornecidos.
+type Ditado = {
+    frase: string;
+    autor: string;
+};
 
-// TODO: Implemente abaixo:
+const ditadoStarWars: Ditado = {
+    frase: 'Palavras são, na minha nada humilde opinião, nossa fonte inesgotável de magia.',
+    autor: 'Dumbledore',
+};
 
-const teorema = 'Teorema de Pitágoras';
-const ladoA = 9;
-const ladoB = 12;
-const hipotenusa = Math.sqrt(ladoA ** 2 + ladoB ** 2); // ladoA^2 + ladoB^2 = hipotenusa^2
+const ditadoPequenoPrincipe: Ditado = {
+    frase: 'Tu te tornas eternamente responsável por aquilo que cativas.',
+    autor: ' Antoine de Saint-Exupéry',
+};
 
-const resultado =
-    '(*): Se um triângulo tem lados de (*) e (*), então a hipotenusa mede (*)';
+function getFrase(ditado: Ditado): string {
+    return ditado.frase;
+}
 
-// Saída esperada:
-// Teorema de Pitágoras: Se um triângulo tem lados de 9 e 12, então a hipotenusa mede 15.
+function getAutor(ditado: Ditado): string {
+    return ditado.autor;
+}
 
-console.log(resultado);
+console.log('Frase: ' + getFrase(ditadoStarWars));
+console.log(' - Autor: ' + getAutor(ditadoStarWars));
+console.log('Frase: ' + getFrase(ditadoPequenoPrincipe));
+console.log(' - Autor: ' + getAutor(ditadoPequenoPrincipe));
 
 // Comando para rodar este arquivo: npx tsx src/extra2.ts
 // Comando para verificar o TypeScript: npx eslint src/extra2.ts

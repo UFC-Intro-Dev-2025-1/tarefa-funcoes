@@ -1,32 +1,39 @@
 // Strings Extra 1
 
-// Nesta atividade, você tem duas variáveis: frase e trecho, que contêm duas strings. Realize as tarefas abaixo:
+// Complete o código abaixo das funções para cumprir com o resultado esperado. Utilize os métodos para strings. Veja: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String
 
-// 1. Descubra o comprimento da frase e armazene em uma variável chamada comprimentoFrase.
-// 2. Encontre a posição (índice) onde o trecho aparece na frase e armazene em uma variável chamada indice.
-// 3. Usando as variáveis e métodos de string disponíveis, recorte a frase original para ficar apenas com "Eu não gosto de spoilers." e armazene em uma variável chamada fraseRevisada.
+let frase =
+    'Palavras são, na minha nada humilde opinião, nossa fonte inesgotável de mgia.';
 
-// Dica: Use os métodos length, indexOf e slice.
+function calcularComprimento(texto: string): number {
+    return texto.length;
+}
 
-// TODO: Implemente abaixo:
+function contarPalavras(texto: string): number {
+    return texto.split(' ').length;
+}
 
-const frase = 'Eu não gosto de spoilers e memes sem graça.';
-const trecho = 'e memes sem graça.';
+function contemTrecho(texto: string, palavra: string): boolean {
+    return texto.includes(palavra);
+}
 
-let comprimentoTrecho: number;
-let indice: number;
-let fraseRevisada: string;
+function substituirTrecho(antigo: string, novo: string): void {
+    frase = frase.replace(antigo, novo);
+}
 
-// Seu código aqui 👇
+console.log(`Comprimento da frase: ${calcularComprimento(frase)}`); //77
+console.log(`A frase contem: ${contarPalavras(frase)} palavras`); // 12
+console.log(
+    `A frase contem a palavra "magia"? ${contemTrecho(frase, 'magia')}`
+); // false
 
+console.log('\n------- Corrigindo a palavra "magia"');
+substituirTrecho('mgia', 'magia');
+console.log('Frase corrigida: ' + frase); // true
 
-
-
-
-
-console.log(`Comprimento do trecho: ${comprimentoTrecho}`); //18
-console.log(`Índice do trecho: ${indice}`); // 25
-console.log(`Frase revisada: ${fraseRevisada}`); // "Eu não gosto de spoilers."
+console.log(
+    `A frase contem a palavra "magia"? ${contemTrecho(frase, 'magia')}`
+);
 
 // Comando para rodar este arquivo: npx tsx src/extra1.ts
 // Comando para verificar o TypeScript: npx eslint src/extra1.ts
