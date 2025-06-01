@@ -1,4 +1,5 @@
 import { execSync } from 'child_process';
+import * as fs from 'fs';
 
 let passed = 0;
 const total = 4;
@@ -90,12 +91,21 @@ try {
 
 // Teste 4: Verifica o extra3.ts
 try {
-    // testa primeiro se roda
+    // testa se o arquivo possui símbolo de arrowfunction
+    const elementoArrowFunction = '=>';
+    const conteudo = fs.readFileSync('src/extra3.ts', 'utf-8');
+
+    // testa se roda, depois testa a saída
     const saidaEsperadaExtra3 = '15.00\n14.14';
     const output = execSync('npx tsx src/extra3.ts').toString();
+
     if (output.toString().search(saidaEsperadaExtra3) >= 0) {
-        passed++;
-        console.log('✅ extra3.ts: Saída em texto do código é a esperada.');
+        if (conteudo.includes(elementoArrowFunction)) {
+            passed++;
+            console.log('✅ extra3.ts: Saída em texto do código é a esperada.');
+        } else {
+            console.log('❌ extra3.ts: Código não usa ArrowFunction.');
+        }
     } else {
         console.log('❌ extra3.ts: Saída em texto do código não é a esperada.');
     }

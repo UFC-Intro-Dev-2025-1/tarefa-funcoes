@@ -2,20 +2,20 @@
 
 <!-- toc -->
 
-- [Definindo Funções](#definindo-funções)
-  - [Declaração de Função](#declaração-de-função)
-  - [Expressão de Função](#expressão-de-função)
-  - [Função Construtora](#função-construtora)
-- [Chamando Funções](#chamando-funções)
-- [Escopo de Função e Closures](#escopo-de-função-e-closures)
-- [Objeto `arguments`](#objeto-arguments)
-- [Parâmetros de Função](#parâmetros-de-função)
-- [Funções de Seta (Arrow Functions)](#funções-de-seta-arrow-functions)
-  - [Sintaxe](#sintaxe)
-  - [Características](#características)
-  - [Retornando Objetos Literais](#retornando-objetos-literais)
-  - [Exemplos](#exemplos)
-- [Referências](#referências)
+-   [Definindo Funções](#definindo-funções)
+    -   [Declaração de Função](#declaração-de-função)
+    -   [Expressão de Função](#expressão-de-função)
+    -   [Função Construtora](#função-construtora)
+-   [Chamando Funções](#chamando-funções)
+-   [Escopo de Função e Closures](#escopo-de-função-e-closures)
+-   [Objeto `arguments`](#objeto-arguments)
+-   [Parâmetros de Função](#parâmetros-de-função)
+-   [Funções de Seta (Arrow Functions)](#funções-de-seta-arrow-functions)
+    -   [Sintaxe](#sintaxe)
+    -   [Características](#características)
+    -   [Retornando Objetos Literais](#retornando-objetos-literais)
+    -   [Exemplos](#exemplos)
+-   [Referências](#referências)
 
 <!-- toc -->
 
@@ -143,12 +143,13 @@ Quando uma função é definida dentro de outra função, a função interna tem
 ```typescript
 // TypeScript
 function criarContador(): () => number {
-  let contador = 0; // Variável da função externa
+    let contador = 0; // Variável da função externa
 
-  return function incrementar(): number { // Função interna (closure)
-    contador++; // Acessa a variável da função externa
-    return contador;
-  };
+    return function incrementar(): number {
+        // Função interna (closure)
+        contador++; // Acessa a variável da função externa
+        return contador;
+    };
 }
 
 const contador = criarContador(); // cria um closure
@@ -233,7 +234,6 @@ mostrarSoma(1, 2); // 3
 mostrarSoma(1, 2, 3); // 6
 ```
 
-
 ## Funções de Seta (Arrow Functions)
 
 Introduzidas no ES6, as funções de seta oferecem uma sintaxe mais curta:
@@ -254,7 +254,7 @@ Se a função tiver apenas um parâmetro, os parênteses são opcionais:
 
 ```javascript
 // JavaScript
-const quadrado = x => x * x;
+const quadrado = (x) => x * x;
 console.log(quadrado(3)); // Saída: 9
 ```
 
@@ -273,7 +273,6 @@ const somar = (a, b) => {
     return resultado;
 };
 ```
-
 
 ### Sintaxe
 
@@ -326,7 +325,6 @@ function dobrar(a: number): number {
 const dobrarArrow = (a: number): number => a * 2;
 ```
 
-
 ```javascript
 // JavaScript
 const processar = (a, b) => {
@@ -344,6 +342,7 @@ const processar = (a: number, b: number): number => {
 ```
 
 ### Tipo Alias
+
 Tipos de função podem ser especificados separadamente de funções com aliases de tipo.
 
 Esses tipos são escritos de forma semelhante às funções de seta. Leia mais sobre funções de seta aqui.
@@ -351,8 +350,6 @@ Esses tipos são escritos de forma semelhante às funções de seta. Leia mais s
 ```typescript
 //TypeScript
 type Zerar = (value: number) => number;
-
-// in this function, the parameter `value` automatically gets assigned the type `number` from the type `Negate`
 const zerarValor: Zerar = (value) => 0;
 ```
 
