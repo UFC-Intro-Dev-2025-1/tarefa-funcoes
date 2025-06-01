@@ -10,7 +10,7 @@ console.log(
 
 // Valida o TypeScript
 try {
-    const outputLinter = execSync('npx eslint . --ext .ts').toString();
+    const outputLinter = execSync('npx eslint src/**/*.ts').toString();
 
     if (outputLinter.includes('problem') || outputLinter.includes('error')) {
         console.log('❌ Verifique o TypeScript no código.');
