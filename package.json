@@ -16,9 +16,9 @@
     },
     "scripts": {
         "test": "npm run classtest",
-        "build": "tsx src/main.ts",
-        "watch": "tsx watch src/main.ts",
-        "lint": "eslint . --ext .ts",
-        "classtest": "tsx classroom/test.ts"
+        "build": "npx tsx src/main.ts",
+        "watch": "npx tsx watch src/main.ts",
+        "lint": "npx eslint . --ext .ts",
+        "classtest": "npx tsx classroom/test.ts"
     }
 }
