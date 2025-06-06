@@ -1,4 +1,4 @@
-# 🎯 Tarefa - Strings - Descrição
+# 🎯 Tarefa - Descrição
 
 Esta atividade está descrita nos arquivos `src/main.ts`, `src/extra1.ts`, `src/extra2.ts` e `src/extra3.ts`. Implemente a solução em cada arquivo.
 
